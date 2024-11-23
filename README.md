@@ -32,7 +32,7 @@ This script is designed to manage and track student performance. It calculates i
   Calculates the average score using:
 
   ```python
-  return sum(self.scores) / len(self.scores)
+  return sum(self.scores.values()) / len(self.scores.values())
   ```
 
 - `is_passing(self, passing_score=40)`  
@@ -63,7 +63,7 @@ This script is designed to manage and track student performance. It calculates i
   ```
 
 - `display_student_performance(self)`  
-  Prints each student's average score and their passing status.
+  Prints each student's Name and each book name with score also average score and their passing status.
 
 ---
 
@@ -72,10 +72,19 @@ This script is designed to manage and track student performance. It calculates i
 - Prompts the user to enter a student's name and scores for three subjects.
 - Handles invalid input using a `try...except` block:
   ```python
-  try:
-      scores = [int(input(f"Enter {subject} score: ")) for subject in ['Math', 'Science', 'English']]
-  except ValueError:
-      print("Invalid input. Please enter numeric values for scores.")
+        try:
+            name = input("Enter student's name (or 'done' to finish): ")
+            if name.lower() == 'done':
+                break
+            while True:
+                subject=input("Enter subject name (or 'done' to finish): ")
+                if subject.lower() == 'done':
+                    break
+                score = int(input(f"Enter {subject} score: "))
+                scores[subject]=score
+            return name, scores
+        except ValueError:
+            print("Invalid input. Please enter numeric values for scores.")
   ```
 
 ---
@@ -117,21 +126,20 @@ This script is designed to manage and track student performance. It calculates i
 ## **Sample Output**
 
 ```
-Enter student's name (or 'done' to finish): Ali
-Enter Math score: 85
-Enter Science score: 90
-Enter English score: 88
-Enter student's name (or 'done' to finish): Umer
-Enter Math score: 70
-Enter Science score: 60
-Enter English score: 50
-Enter student's name (or 'done' to finish): Hamza
-
 Student Performance:
-Alice: Average = 87.67, Status = Passing
-Bob: Average = 60.00, Status = Passing
 
-Class Average: 73.83
+Performance for Umer:
+  OOP: 89
+  Data Base: 78
+  DSA: 98
+  Average = 88.33, Status = Passing
+
+Performance for Ali:
+  OOp: 97
+  DSA: 78
+  Average = 87.50, Status = Passing
+
+Class Average: 87.92
 ```
 
 ---
