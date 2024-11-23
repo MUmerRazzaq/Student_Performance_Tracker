@@ -22,11 +22,13 @@ class PerformanceTracker:
         return total_average / len(self.students)
 
     def display_student_performance(self):
-        for student, scrore in self.students.items():
+        for student in self.students.values():
+            print(f"\nPerformance for {student.name}:")
+            for subject, score in student.scores.items():
+                print(f"  {subject}: {score}")
             average_score = student.calculate_average()
             status = "Passing" if student.is_passing() else "Failing"
-            print(f"Performance Of {student} \n -{subject : scrores} , Status = {status}")
-            print(f"{student.name}: Average = {average_score:.2f}, Status = {status}")
+            print(f"  Average = {average_score:.2f}, Status = {status}")
 def get_student_data():
     while True:
         scores={}
@@ -34,8 +36,9 @@ def get_student_data():
             name = input("Enter student's name (or 'done' to finish): ")
             if name.lower() == 'done':
                 break
-            subject=input("Enter subject name (or 'done' to finish): ")
+            
             while True:
+                subject=input("Enter subject name (or 'done' to finish): ")
                 if subject.lower() == 'done':
                     break
                 score = int(input(f"Enter {subject} score: "))
